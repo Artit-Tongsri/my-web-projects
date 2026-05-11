@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume</title>
+</head>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+        
+    nav {
+        background-color: #2c3e50;
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        border-radius: 15px;
+    }
+
+    /* --- [1] สไตล์เมนูสำหรับมือถือ (เรียงแนวตั้ง) --- */
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        /* มือถือให้เรียงลงมาเป็นแถวตอนลึก */
+        padding: 20px 0;
+        list-style: none;
+        text-align: center;
+        background-color: #2c3e50;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+        /* เว้นระยะให้ห่างพอสำหรับ "นิ้วมือ" กด */
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+    }
+
+    </style>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="Resume.html">หน้าแรก</a></li>
+                <li class="nav-item-optional"><a href="landing.html">หลักสูตร</a></li>
+                <li class="nav-item-optional"><a href="#">รีวิวจากนักเรียน</a></li>
+                <li><a href="#">ติดต่อเรา</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+</body>
+</html>
