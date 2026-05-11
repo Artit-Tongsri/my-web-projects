@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 32px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+            opacity: 0.8;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .search-row input {
+            flex: 1;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .search-row input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-row button {
+            padding: 10px 16px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .search-row button:hover {
+            background: #2980b9;
+        }
+
+        .weather-icon {
+            font-size: 5rem;
+            margin-bottom: 12px;
+        }
+
+        .temp {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .city-name {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 24px;
+        }
+
+        .details {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .detail-item {
+            text-align: center;
+        }
+
+        .detail-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        #message {
+            opacity: 0.7;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>🌍 Weather App</h1>
+
+        <div class="search-row">
+            <input type="text" id="cityInput" placeholder="ชื่อเมือง เช่น Bangkok">
+            <button id="searchBtn">ค้นหา</button>
+        </div>
+
+        <div id="weatherResult" style="display:none">
+            <div class="weather-icon" id="weatherIcon">🌤️</div>
+            <div class="temp" id="temp">--°C</div>
+            <div class="city-name" id="cityName">--</div>
+            <div class="details">
+                <div class="detail-item">
+                    <div class="detail-value" id="humidity">--%</div>
+                    <div class="detail-label">ความชื้น</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-value" id="wind">-- km/h</div>
+                    <div class="detail-label">ลม</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-value" id="feels">--°C</div>
+                    <div class="detail-label">รู้สึกเหมือน</div>
+                </div>
+            </div>
+        </div>
+
+        <p id="message">พิมพ์ชื่อเมืองแล้วกดค้นหาครับ</p>
+    </div>
+
+    <script>
+        const searchBtn = document.querySelector('#searchBtn');
+        const cityInput = document.querySelector('#cityInput');
+
+        searchBtn.addEventListener('click', searchWeather);
+        cityInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') searchWeather();
+        });
+
+        async function searchWeather() {
+            const city = cityInput.value.trim();
+            if (!city) return;
+
+            document.querySelector('#message').textContent = 'กำลังค้นหา...';
+            document.querySelector('#weatherResult').style.display = 'none';
+
+            // ขั้นที่ 1: หาพิกัด lat/lon จากชื่อเมือง
+           const geoRes = await fetch(
+                `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en`
+            );
+            const geoData = await geoRes.json();
+
+            if (!geoData.results) {
+                document.querySelector('#message').textContent = 'ไม่พบเมืองนี้ครับ ลองใหม่นะ';
+                return;
+            }
+            
+            const { latitude, longitude, name, country } = geoData.results[0];
+
+            // ขั้นที่ 2: ดึงข้อมูลอากาศจากพิกัด
+            const weatherRes = await fetch(
+                `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m&timezone=auto`
+            );
+            const weatherData = await weatherRes.json();
+            const current = weatherData.current;
+
+            // ขั้นที่ 3: แสดงผล
+            const temp = current.temperature_2m;
+            document.querySelector('#temp').textContent = temp + '°C';
+            document.querySelector('#cityName').textContent = name + ', ' + country;
+            document.querySelector('#humidity').textContent = current.relative_humidity_2m + '%';
+            document.querySelector('#wind').textContent = current.wind_speed_10m + ' km/h';
+            document.querySelector('#feels').textContent = current.apparent_temperature + '°C';
+            
+            // เลือก emoji ตามอุณหภูมิ
+            let icon = '🌤️';
+            if (temp >= 35) icon = '🥵';
+            else if (temp >= 28) icon = '☀️';
+            else if (temp >= 20) icon = '⛅';
+            else if (temp >= 10) icon = '🌥️';
+            else icon = '🥶';
+
+            document.querySelector('#weatherIcon').textContent = icon;
+            document.querySelector('#weatherResult').style.display = 'block';
+            document.querySelector('#message').textContent = '';
+        }
+    </script>
+</body>
+
+</html>

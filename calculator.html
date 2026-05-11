@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <h2>เครื่องคิดเลข</h2>
+
+    <input type="number" id="num1" placeholder="ตัวเลขที่ 1">
+    <input type="number" id="num2" placeholder="ตัวเลขที่ 2">
+    <br><br>
+    <button onclick="calculate('+')">บวก</button>    
+    <button onclick="calculate('-')">ลบ</button>
+    <button onclick="calculate('*')">คูณ</button>
+    <button onclick="calculate('/')">หาร</button>   
+    
+    <h3 id="result">ผลลัพธ์: ?</h3>
+
+    <h3>ประวัติ</h3>
+    <ul id="history"></ul>
+    <button onclick="clearHistory()">ล้างประวัติ</button>
+
+    <script>
+    const history = []; // Array เก็บประวัติทั้งหมด
+    function add(a, b) { return a + b; }
+    function subtract(a, b) { return a - b; }
+    function multiply(a, b) { return a * b; }
+    function divide(a, b) {
+         if (b === 0) return 'หารด้วยศูนย์ไม่ได้!';
+         return a / b;
+     }
+
+     function calculate(operator){
+         const num1 = Number(document.getElementById('num1').value);
+         const num2 = Number(document.getElementById('num2').value);
+        
+         let result;
+         if (operator === '+'){result = add(num1, num2);} 
+             else if (operator === '-'){result = subtract(num1, num2);}
+             else if (operator === '*'){result = multiply(num1, num2);}
+             else if (operator === '/'){result = divide(num1, num2);}
+        
+         document.getElementById('result').textContent = 'ผลลัพธ์ ' + result;
+         // เพิ่มเข้า array
+         history.push(num1 + ' ' + operator + ' ' + num2 + ' = ' + result);
+         // วาด list ใหม่ทั้งหมดจาก array 
+         renderHistory();
+     }
+     function renderHistory() {
+        const historyList = document.getElementById('history');
+        historyList.innerHTML = ''; // ล้างของเก่าก่อน
+
+        for (let i = 0; i < history.length; i++) {
+            const item = document.createElement('li');
+            item.textContent = history[i];
+            historyList.appendChild(item);
+        }
+     }
+      function clearHistory() {
+        history.length = 0;
+        renderHistory();
+        document.getElementById('result').textContent = 'ผลลัพธ์: ?';
+      }
+        //     function add(a, b) { return a + b; }
+        // function subtract(a, b) { return a - b; }
+        // function multiply(a, b) { return a * b; }
+        // function divide(a, b) {
+        //     if (b === 0) return 'หารด้วยศูนย์ไม่ได้!';
+        //     return a / b;
+        // }
+
+        // function calculate(operator){
+        //     const num1 = Number(document.getElementById('num1').value);
+        //     const num2 = Number(document.getElementById('num2').value);
+            
+        //     let result;
+        //     if (operator === '+'){result = add(num1, num2);} 
+        //         else if (operator === '-'){result = subtract(num1, num2);}
+        //         else if (operator === '*'){result = multiply(num1, num2);}
+        //         else if (operator === '/'){result = divide(num1, num2);}
+            
+        //     document.getElementById('result').textContent = 'ผลลัพธ์ ' + result;
+        // const historylist = document.getElementById('history');
+        // const newItem = document.createElement('li');
+        // newItem.textContent = num1 + ' ' + operator + ' ' + num2 + ' = ' + result;
+        // historylist.appendChild(newItem);
+        // }
+
+        // function calculate(operator){
+        //     const num1 = Number(document.getElementById('num1').value);
+        //     const num2 = Number(document.getElementById('num2').value);
+            
+        //     let result;
+        //     if (operator === '+'){
+        //         result = num1 + num2;
+        //     } else if (operator === '-'){
+        //         result = num1 - num2;
+        //     } else if (operator === '*'){
+        //         result = num1 * num2;
+        //     } else if (operator === '/'){
+        //         if (num2 === 0){
+        //             result = 'หารด้วยศูนย์ไม่ได้!';
+        //         } else {
+        //         result = num1 / num2;
+        //         }
+        //     }
+        //     document.getElementById('result').textContent = 'ผลลัพธ์ ' + result;
+        // }
+        // function greet(name) {
+        //     console.log("สวัสดีครับ " + name);
+        // }
+        // greet("Artit"); // สวัสดีครับ Artit
+        // greet("สมชาย"); // สวัสดีครับ สมชาย
+        
+        // function add(a, b){
+        //     return a + b;
+        // }
+        // const result = add(10, 5);
+        // console.log(result); // 15
+
+        // for (let i = 1; i <= 5; i++){
+        //     console.log("รอบที่ " + i);
+        // }
+// // แบบเก่า — ต้องสร้างตัวแปรหลายตัว
+// const score1 = 85;
+// const score2 = 92;
+// const score3 = 78;
+
+// // แบบใหม่ — เก็บทุกอย่างใน Array เดียว
+// const scores = [85, 92, 78];
+
+// const fruits = ["แอปเปิ้ล", " กล้วย", "ส้ม"];
+
+// console.log(fruits[0]) ; // แอปเปิ้ล
+// console.log(fruits[1]) ; // กล้วย
+// console.log(fruits[2]) ;  // ส้ม
+// console.log(fruits.length) ; // 3 — จำนวนสมาชิกทั้งหมด
+
+// const fruits = ["แอปเปิ้ล", "กล้วย"];
+
+// fruits.push("ส้ม") ; // เพิ่มตัวท้าย → ["แอปเปิ้ล", "กล้วย", "ส้ม"]
+// fruits.pop(); // ลบตัวท้าย  → ["แอปเปิ้ล", "กล้วย"]
+// console.log(fruits.length); // 2
+
+
+    </script>
+</body>
+</html>

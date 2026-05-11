@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฟอร์มสมัครงาน</title>
+</head>
+
+<body>
+    <header>
+        <h1>แบบฟอร์มสมัครงาน</h1>
+        <nav>
+            <ul>
+                <ol>
+                    <li><a href="#1">(ชื่อ)</a></li>
+                    <li><a href="#2">(ระดับการศึกษา)</a></li>
+                    <li><a href="#3">(ความสนใจ)</a></li>
+                    <li><a href="#4">(เลือกตำแหน่งงานที่อยากสมัคร)</a></li>
+                </ol>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <Section>
+            <h3>กรอกชื่อ</h3><br>
+            <input type="text" name="ชื่อ-นามสกุน" id="ชื่อ-นามสกุน" placeholder="ชื่อ-นามสกุล"><br><br>
+        </Section>
+
+        <section>
+            <h3>ระดับการศึกษา</h3>
+            <input type="radio" name="ระดับการศึกษา" id="ระดับการศึกษา" value="ปวส.">
+            <label for="ระดับการศึกษา">ระดับการศึกษา ปวส.</label><br><br>
+            <input type="radio" name="ระดับการศึกษา" id="ระดับการศึกษา" value="ป.ตรี">
+            <label for="ระดับการศึกษา">ระดับการศึกษา ป.ตรี</label><br><br>
+        </section>
+
+        <section>
+            <h3>ความสนใจ</h3>
+            <input type="checkbox" name="ความสนใจ" id="ความสนใจ">
+            <label for="ความสนใจ">HTML Basics</label><br><br>
+            <input type="checkbox" name="ความสนใจ" id="ความสนใจ">
+            <label for="ความสนใจ">การใช้ macOS สำหรับ Dev</label><br><br>
+            <input type="checkbox" name="ความสนใจ" id="ความสนใจ">
+            <label for="ความสนใจ">การพิมพ์สัมผัส</label><br><br>
+        </section>
+
+        <section>
+            <h3>เลือกตำแหน่งงานที่อยากสมัคร</h3><br>
+            <select name="เลือกตำแหน่งงานที่อยากสมัคร" id="เลือกตำแหน่งงานที่อยากสมัคร">
+                <option value="Software Engineer / Developer">Software Engineer / Developer</option>
+                <option value="Front-End / Back-End / Full-Stack Developer">Front-End / Back-End / Full-Stack Developer
+                </option>
+                <option value="Mobile App Developer">Mobile App Developer</option>
+            </select><br><br>
+        </section>
+
+        <section>
+            <button type="submit">ปุ่มส่งใบสมัคร</button>
+        </section>
+
+    </main>
+    <footer>
+        <p>&copy; 2026 สร้างด้วยความตั้งใจ</p>
+    </footer>
+</body>
+
+</html>

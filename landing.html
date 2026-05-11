@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* ตั้งค่าพื้นฐาน */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* --- [1] สไตล์สำหรับมือถือ (Mobile Style - Default) --- */
+    .container {
+        width: 90%;
+        /* ไม่เต็มจอ 100% เพื่อให้มีขอบข้างนิดหน่อย */
+        margin: 0 auto;
+    }
+
+    /* Hero Section: ใช้ Flex จัดกลาง */
+    .hero {
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* ไล่สีจากน้ำเงินเข้มไปหาน้ำเงินสว่าง */
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        color: white;
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+        /* ตัวใหญ่ดึงดูดสายตา */
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    /* Features: ใช้ Flex เรียง 3 คอลัมน์ */
+    .features {
+        display: flex;
+        justify-content: space-around;
+        padding: 50px 20px;
+        gap: 20px;
+        flex-wrap: wrap;
+        /* รองรับจอเล็กลง */
+        flex-direction: column;
+        /* มือถือให้เรียงแนวตั้งเสมอ */
+    }
+
+    .feature-card {
+        flex: 1;
+        min-width: 280px;
+        padding: 40px 20px;
+        background: white;
+        border: none;
+        border-radius: 15px;
+        text-align: center;
+        transition: 0.3s;
+        /* เพิ่มเงาจางๆ รอบการ์ด */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-card:hover {
+        transform: scale(1.05);
+        /* ขยายใหญ่ขึ้นเล็กน้อย */
+    }
+
+    .feature-card h3 {
+        color: #2980b9;
+        margin-bottom: 15px;
+    }
+
+    .cta-button {
+        margin-top: 30px;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #2c3e50;
+        background-color: #f1c40f;
+        /* สีเหลืองทอง ตัดกับพื้นหลังน้ำเงิน */
+        border: none;
+        border-radius: 50px;
+        /* ทรงแคปซูล */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        /* หน่วงเวลาเวลาขยับ */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        /* ลอยขึ้นเล็กน้อยเมื่อชี้ */
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        background-color: #f39c12;
+    }
+
+    .cta-button:active {
+        transform: scale(0.95);
+        /* เมื่อใช้นิ้วกด ปุ่มจะยุบตัวลงเล็กน้อยเหมือนปุ่มจริงๆ */
+        background-color: #d4ac0d;
+    }
+
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 40px auto;
+    }
+
+    nav {
+        background-color: #2c3e50;
+        padding: 10px 0;
+    }
+
+    /* --- [1] สไตล์เมนูสำหรับมือถือ (เรียงแนวตั้ง) --- */
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        /* มือถือให้เรียงลงมาเป็นแถวตอนลึก */
+        padding: 20px 0;
+        list-style: none;
+        text-align: center;
+        background-color: #2c3e50;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+        /* เว้นระยะให้ห่างพอสำหรับ "นิ้วมือ" กด */
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+    }
+
+
+
+    /* --- [2] สไตล์สำหรับแท็บเล็ต (Tablet - min-width: 768px) --- */
+    @media (min-width: 768px) {
+        .hero h1 {
+            font-size: 3rem;
+        }
+
+        .features {
+            flex-direction: row;
+            /* จอเริ่มกว้าง ให้กางออกเป็นแนวนอน */
+            flex-wrap: wrap;
+            /* ถ้า 3 กล่องเบียดกันเกินไป ให้ลงมาบรรทัดใหม่ */
+        }
+
+        .feature-card {
+            flex: 1 1 45%;
+            /* ให้กินพื้นที่ประมาณครึ่งจอ (2 คอลัมน์) */
+        }
+
+        .nav-links {
+            flex-direction: row;
+            /* จอใหญ่ให้กลับมาเรียงแนวนอน */
+            justify-content: flex-end;
+            /* จัดเมนูชิดขวา */
+            background-color: transparent;
+            /* ให้กลืนไปกับพื้นหลัง Hero */
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+            /* เว้นระยะห่างซ้ายขวาแทน */
+        }
+
+        .nav-item-optional {
+            display: block;
+            /* โชว์เมนูทั้งหมดบนจอใหญ่ */
+        }
+
+        .container {
+            max-width: 768px;
+        }
+    }
+
+    /* --- [3] สไตล์สำหรับจอ Mac/Desktop (Desktop - min-width: 1024px) --- */
+    @media (min-width: 1024px) {
+        .container {
+            max-width: 1100px;
+            /* จอใหญ่แค่ไหน เว็บก็จะไม่กว้างเกินไปจนอ่านยาก */
+        }
+
+        .feature-card {
+            flex: 1;
+            /* กลับมาเรียง 3 คอลัมน์สวยๆ ในแถวเดียว */
+        }
+    }
+</style>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#">หน้าแรก</a></li>
+                <li class="nav-item-optional"><a href="#">หลักสูตร</a></li>
+                <li class="nav-item-optional"><a href="#">รีวิวจากนักเรียน</a></li>
+                <li><a href="#">ติดต่อเรา</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>เปลี่ยนคุณเป็น Web Developer ใน 12 สัปดาห์</h1>
+        <p>เรียนรู้ตั้งแต่พื้นฐานจนทำโปรเจกต์จริงได้บน MacBook ของคุณ</p>
+        <button class="cta-button" style="margin-top:20px; padding:10px 20px; cursor:pointer;">เริ่มเรียนเลย!</button>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <h3>ง่ายต่อการเข้าใจ</h3>
+            <p>อธิบายด้วยภาษาง่ายๆ พร้อมตัวอย่างจริง</p>
+        </div>
+        <div class="feature-card">
+            <h3>เน้นลงมือทำ</h3>
+            <p>เขียนโค้ดจริงทุกวัน วันละ 30 นาที</p>
+        </div>
+        <div class="feature-card">
+            <h3>มี Roadmap ชัดเจน</h3>
+            <p>ไม่ต้องเดาว่าต้องเรียนอะไรต่อ</p>
+        </div>
+    </section>
+
+    <img id="img" src="835-536x354.jpg" alt="รูปโปรไฟล์ของฉัน">
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สุ่มตัวเลข</title>
+</head>
+
+<body>
+    <h2>เกมสุ่มตัวเลข</h2>
+    <p>ระบบจะสุ่มเลข 1-100 ให้ทายครับ</p>
+
+    <input type="number" id="guess" placeholder="ทายตัวเลข 1-100">
+    <button onclick="checkGuess()">ทาย</button>
+    <button onclick="newGame()">เริ่มใหม่</button>
+
+    <p id="message">กดเริ่มใหม่เพื่อเริ่มเกม</p>
+    <p id="attempts">จำนวนครั้งที่ทาย: 0</p>
+
+    <h3>ประวัติทาย:</h3>
+    <ul id="history"></ul>
+
+    <script>
+        let secretNumber = 0;
+        let attempts = 0;
+        const guessHistory = [];
+
+        function newGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            guessHistory.length = 0;
+
+            document.getElementById('message').textContent = 'เริ่มเกมใหม่แล้ว! ทายเลข 1-100';
+            document.getElementById('attempts').textContent = 'จำนวนครั้งที่ทาย: 0';
+            document.getElementById('guess').value = '';
+            renderHistory();
+        }
+
+        function checkGuess() {
+            const guess = Number(document.getElementById('guess').value);
+
+            if (guess < 1 || guess > 100) {
+                document.getElementById('message').textContent = 'กรุณากรอกเลข 1-100 เท่านั้น!';
+                return;
+            }
+
+            attempts++;
+
+            let result;
+            if (guess === secretNumber) {
+                result = guess + ' — ถูกต้อง!';
+                document.getElementById('message').textContent =
+                    'ยินดีด้วย! ทายถูกใน ' + attempts + ' ครั้ง';
+            } else if (guess < secretNumber) {
+                result = guess + ' — น้อยเกินไป';
+                document.getElementById('message').textContent = 'น้อยเกินไป ลองใหม่!';
+            } else {
+                result = guess + ' — มากเกินไป';
+                document.getElementById('message').textContent = 'มากเกินไป ลองใหม่!';
+            }
+
+            attempts = attempts; // อัปเดตจำนวนครั้ง
+            document.getElementById('attempts').textContent = 'จำนวนครั้งที่ทาย: ' + attempts;
+
+            guessHistory.push(result);
+            renderHistory();
+        }
+
+
+        function renderHistory() {
+            const list = document.getElementById('history');
+            list.innerHTML = '';
+            guessHistory.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                list.appendChild(li);
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>
