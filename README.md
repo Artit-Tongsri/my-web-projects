@@ -1,6 +1,6 @@
 # My Web Projects 🚀
 
-12-Week Web Developer Journey โดย Artit Tongsri
+12-Week Web Developer Journey โดย Artit Tongsri[YODBOON]
 
 ## Projects
 - 📄 Resume.html — หน้า Resume ส่วนตัว
